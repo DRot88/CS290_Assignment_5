@@ -28,8 +28,12 @@ function addElements() {
     for (var j = 1; j <= 4; j++) {
       tData = document.createElement("td"); 
       row.appendChild(tData);
+      tData.className = "unselected";
       newContent = document.createTextNode(j + ", " + i);
       tData.appendChild(newContent);
+      if(tData.textContent == "1, 1") {
+        tData.className = "Selected";
+      }      
     }
   }
 
@@ -59,6 +63,5 @@ function addElements() {
 
   newContent = document.createTextNode("Mark Cell");
   markCell.appendChild(newContent);
-
 
 }
