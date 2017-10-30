@@ -1,3 +1,10 @@
+/**************************************************************
+** Author: Daniel Rotenberg
+** Date: 10/29/2017
+** Description: This javascript file creates a table on a blank
+                HMTL file, and adds interactivity by allowing
+                users to traverse the table and highlight cells.
+**************************************************************/
 
   var newTable = document.createElement("table");
   var tBody = document.createElement("tbody");
@@ -43,9 +50,14 @@
   var left = document.createElement("button");
   var right = document.createElement("button");
   var markCell = document.createElement("button");
+  var pageBreak = document.createElement("br");
+
+  document.body.appendChild(pageBreak);
 
   document.body.appendChild(up);
   up.id = "up";
+  up.style.backgroundColor = "lightgreen";
+  up.style.fontWeight = "bold";
   up.addEventListener("click", function() {
     var currentCell = document.getElementsByClassName("selected");
     if (currentCell[0].parentNode.previousSibling.firstChild.tagName == "TH") {
@@ -59,8 +71,13 @@
     }
   });
 
+  pageBreak = document.createElement("br");
+  document.body.appendChild(pageBreak);
+
   document.body.appendChild(down);
   down.id = "down";
+  down.style.backgroundColor = "lightgreen";
+  down.style.fontWeight = "bold";
   down.addEventListener("click", function() {
     var currentCell = document.getElementsByClassName("selected");
     if (currentCell[0].parentNode.nextSibling != null) {
@@ -74,17 +91,53 @@
     }
   });  
 
+  pageBreak = document.createElement("br");
+  document.body.appendChild(pageBreak);
 
   document.body.appendChild(left);
-  left.id = "left";  
+  left.id = "left";
+  left.style.backgroundColor = "lightgreen";
+  left.style.fontWeight = "bold";
+  left.addEventListener("click", function() {
+    var currentCell = document.getElementsByClassName("selected");
+    if (currentCell[0].previousSibling != null) {
+      currentCol -= 1;      
+      currentCell[0].className = "unselected";
+      var newCell = document.getElementById("Row" + currentRow + "_Column" + currentCol);
+      newCell.className = "selected";
+      toggleStyle();
+    } else {
+      return;
+    }
+  });    
 
+  pageBreak = document.createElement("br");
+  document.body.appendChild(pageBreak);
 
   document.body.appendChild(right);
-  right.id = "right";  
+  right.id = "right";
+  right.style.backgroundColor = "lightgreen";
+  right.style.fontWeight = "bold";
+  right.addEventListener("click", function() {
+    var currentCell = document.getElementsByClassName("selected");
+    if (currentCell[0].nextSibling != null) {
+      currentCol += 1;      
+      currentCell[0].className = "unselected";
+      var newCell = document.getElementById("Row" + currentRow + "_Column" + currentCol);
+      newCell.className = "selected";
+      toggleStyle();
+    } else {
+      return;
+    }
+  });   
 
+  pageBreak = document.createElement("br");
+  document.body.appendChild(pageBreak);
 
   document.body.appendChild(markCell);
   markCell.id = "markCell";  
+  markCell.style.backgroundColor = "yellow";
+  markCell.style.fontWeight = "bold";
   markCell.addEventListener("click", function() {
     var currentCell = document.getElementsByClassName("selected");
     currentCell[0].style.backgroundColor = "yellow";
@@ -105,6 +158,7 @@
   newContent = document.createTextNode("Mark Cell");
   markCell.appendChild(newContent);
 
+  document.body.style.backgroundColor = "#E6F2FC";
   toggleStyle();
 
   function toggleStyle() {
@@ -118,6 +172,4 @@
   selected[0].style.border = "solid 3px red";        
 
   }
-
-
   
